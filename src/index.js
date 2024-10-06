@@ -1,6 +1,7 @@
 const express = require("express") ;
 const {ServerConfig , Logger} = require("./config") ;
 const router = require("./routes") ;
+const { cli } = require("winston/lib/winston/config");
 const app = express() ;
 
 app.listen(ServerConfig.PORT , ()=>{
@@ -102,5 +103,13 @@ app.use("/api" , router) ;
  * Simplifies CRUD operations (Create, Read, Update, Delete).
  * 
  * 
- * WE NEED A DRIVER FOR CONNECTING ORM/ODM TO OUR DATABASES
+ * WE NEED A DRIVER FOR CONNECTING ORM/ODM TO OUR DATABASES----> since by installing ORM/ODM will just help to connect our database to our project
+ *                                                               but driver will help to understand the exact queries 
+ */
+
+/**
+ * IN CONFIG.JSON IN CONFIG FOLDER WHAT DOES DIELECT DO ?
+ * 
+ * it indicates that through which database our application is connected. The dialect is important because it tells the ORM (like Sequelize) how
+ * to communicate with the database, as different databases may have varying query languages and features. 
  */
