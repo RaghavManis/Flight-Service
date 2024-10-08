@@ -1,15 +1,18 @@
 const express = require("express") ;
 const {ServerConfig , Logger} = require("./config") ;
 const router = require("./routes") ;
-const { cli } = require("winston/lib/winston/config");
+// const { cli } = require("winston/lib/winston/config");
 const app = express() ;
+
+app.use(express.json()) ;
+app.use(express.urlencoded({extended:true})) ;
 
 app.listen(ServerConfig.PORT , ()=>{
     // console.log(process) ;
     console.log(`server is succesfully started at port no ${ServerConfig.PORT}`) ;
-    Logger.info("server succesfully started") ;
+    // Logger.info("server succesfully started") ;
 })
-
+// console.log("inside main index.js")
 app.use("/api" , router) ;
 
 
@@ -112,4 +115,41 @@ app.use("/api" , router) ;
  * 
  * it indicates that through which database our application is connected. The dialect is important because it tells the ORM (like Sequelize) how
  * to communicate with the database, as different databases may have varying query languages and features. 
+ */
+
+/**
+ * models file are at js level 
+ * migration files are at database level 
+ */
+
+/**
+ * IS THERE ANY DIFFERENCE BETWEEN RETURN AND THROW , WHNE WE USE WHICH ONE OF THIS
+ * 
+ * Use return when:
+
+ * You want to return a value from a function under normal circumstances.
+ * The function execution is complete and you need to provide a result or end the function.
+ * 
+ * Use throw when:
+ * 
+ * You encounter an error or an exceptional situation, and you need to notify the caller that something went wrong.
+ * You want the error to be caught by error-handling code (e.g., try...catch).
+ */
+
+/**
+ * WHY WE NEDD THIS TWO LINES OF CODE --->app.use(express.json()) ; app.use(express.urlencoded({extended:true})) ;
+
+ * 
+ * are needed so your Express app can read and understand the data that comes from the client.
+
+ * app.use(express.json()):
+ * 
+ * This helps the server READ JSON DATA from the client's request.
+ * Example: If you send { "name": "John" } in a request, this line allows you to access it using req.body.name.
+ *  
+ * 
+ * app.use(express.urlencoded({ extended: true })):
+ * 
+ * This helps the server READ FORM DATA from the client, like when a user submits a form on a website.
+ * Example: If you send name=John&age=30, this line allows you to access it using req.body.name and req.body.age.
  */
