@@ -18,21 +18,21 @@ app.use("/api" , router) ;
 
 
 /**
-    what is process and what is process.env ?
-
-    In Node.js, process is a global object that provides information and control over the current Node.js process.
-    It is an instance of EventEmitter and contains a lot of useful properties and methods to interact with the environment in which the
-    Node.js application is running.
-    
-    
-    process.env is an object that contains the user environment, i.e., the environment variables of the system that are available to the
-    running Node.js process.
-    
-    For example, environment variables are used to store configuration information, such as:
-    
-    Port number
-    Database connection strings
-    API keys
+ *   what is process and what is process.env ?
+ *
+ *   In Node.js, process is a global object that provides information and control over the current Node.js process.
+ *   It is an instance of EventEmitter and contains a lot of useful properties and methods to interact with the environment in which the
+ *   Node.js application is running.
+ *   
+ *   
+ *   process.env is an object that contains the user environment, i.e., the environment variables of the system that are available to the
+ *   running Node.js process.
+ *   
+ *   For example, environment variables are used to store configuration information, such as:
+ *   
+ *   Port number
+ *   Database connection strings
+ *   API keys
  */
 
 
@@ -86,7 +86,7 @@ app.use("/api" , router) ;
  * 
  * ORM (Object-Relational Mapping) and ODM (Object-Document Mapping) are two different techniques for interacting with databases in 
  * object-oriented programming. Both help developers manage data using objects, which can make database interactions easier and more intuitive.
-
+ *
  * 1. ORM (Object-Relational Mapping)
  * Definition: ORM is a technique used to interact with SQL (relational) databases. It maps the rows of a table to objects in code, 
  *             allowing developers to work with database data using familiar programming language constructs instead of writing raw SQL queries.
@@ -126,7 +126,7 @@ app.use("/api" , router) ;
  * IS THERE ANY DIFFERENCE BETWEEN RETURN AND THROW , WHNE WE USE WHICH ONE OF THIS
  * 
  * Use return when:
-
+ *
  * You want to return a value from a function under normal circumstances.
  * The function execution is complete and you need to provide a result or end the function.
  * 
@@ -138,10 +138,10 @@ app.use("/api" , router) ;
 
 /**
  * WHY WE NEDD THIS TWO LINES OF CODE --->app.use(express.json()) ; app.use(express.urlencoded({extended:true})) ;
-
+ *
  * 
  * are needed so your Express app can read and understand the data that comes from the client.
-
+ *
  * app.use(express.json()):
  * 
  * This helps the server READ JSON DATA from the client's request.
@@ -152,4 +152,12 @@ app.use("/api" , router) ;
  * 
  * This helps the server READ FORM DATA from the client, like when a user submits a form on a website.
  * Example: If you send name=John&age=30, this line allows you to access it using req.body.name and req.body.age.
+ */
+
+/**
+ * WHAT COMMANDS ARE USE TO SEED INITIAL DATA IN FORM OF SEED FILES 
+ * 
+ * npx sequelize seed:generate --name add-airplanes  ---> for creating the seed file
+ * npx sequelize db:seed:all   ---> after updating the seed files we will run thos command to aupdate the table with that entries 
+ * npx sequelize db:seed:undo:all   ---> for undo the changes in seed files 
  */
