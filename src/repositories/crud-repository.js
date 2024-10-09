@@ -44,6 +44,9 @@ class crudrepository{
                     id:id ,
                 }
             })
+            if(!response){
+                throw new AppError("data you are looking for to update is not in the database" , StatusCodes.NOT_FOUND) ;
+            }
             return response ;
     }
 }

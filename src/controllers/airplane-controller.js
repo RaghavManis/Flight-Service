@@ -65,9 +65,28 @@ async function destroyAirplane(req, res){
     }
 }
 
+async function updateAirplane(req, res){
+    try {
+        const airplane = AirplaneService.updateAirplane({
+            modelNumber : req.body.modelNumber ,
+            capacity : req.body.capacity ,
+        } , req.params.id) ;
+        SuccessResponse.data = airplane ;
+        return res
+                 .status(StatusCodes.OK)
+                 .json(SuccessResponse) ;
+    } catch (error) {
+        if(error.statusCode == StatusCodes.NOT_FOUND){
+            throw new AppError("airplane you requested to update is not in database " , error.statusCode) ;
+        }
+        throw new AppError("not able to update the airplane you want to update " , StatusCodes.NOT_FOUND) ;
+    }
+}
+
 module.exports = {
     createAirplane,
     getAirplanes ,
     getAirplane ,
     destroyAirplane ,
+    updateAirplane ,
 }
