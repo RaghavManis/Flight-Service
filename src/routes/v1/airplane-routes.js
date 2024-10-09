@@ -8,5 +8,14 @@ const {AirplaneMiddlewares} = require("../../middlewares") ;
 // /api/get/airplanes  POST request
 router.post("/" ,AirplaneMiddlewares.validateCreateRequest , AirplaneController.createAirplane) ;
 
+// /api/get/airplanes get request
+router.get("/" , AirplaneController.getAirplanes) ;
+
+// /api/get/airplanes:id  get request
+router.get("/:id" , AirplaneController.getAirplane) ;
+
+// api/get/airplanes/id delete request 
+router.delete("/:id" , AirplaneController.destroyAirplane) ;
+
 module.exports = router ;
 

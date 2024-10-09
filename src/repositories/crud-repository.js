@@ -1,4 +1,6 @@
+const { StatusCodes } = require("http-status-codes");
 const {Logger} = require("../config") ;
+const AppError = require("../utills/error/app-error");
 
 
 class crudrepository{
@@ -7,63 +9,42 @@ class crudrepository{
     }
 
     async create(data){ // data will be in object form 
-        // try {
-            console.log("inside crud repo in crete function " , data) ;
             const response = await this.model.create(data) ;
-            // console.log("object") ;
             return response ;
-        // } catch (error) {
-        //     Logger.info("something went wrong in the crud repository : create") ;
-        //     throw error ;
-        // }
     }
 
-    async destroy(data){ // data will be in object form 
-        try {
+    async destroy(data){ 
             const response = await this.model.destroy({
                 where:{
                     id:data ,
                 }
             }) ;
+            if(!response){
+                throw new AppError("data you are requested to delete is not in the database" , StatusCodes.NOT_FOUND) ;
+            }
             return response ;
-        } catch (error) {
-            Logger.info("something went wrong in the crud repository : destroy") ;
-            throw error ;
-        }
     }
 
-    async get(id){ // data will be in object form 
-        try {
+    async get(id){ 
             const response = await this.model.findByPk(id) ;
+            if(!response){
+                throw new AppError("data you are looking for is not in the database" , StatusCodes.NOT_FOUND) ;
+            }
             return response ;
-        } catch (error) {
-            Logger.info("something went wrong in the crud repository : get") ;
-            throw error ;
-        }
     } 
     
     async getAll(){ // data will be in object form 
-        try {
             const response = await this.model.findAll() ;
             return response ;
-        } catch (error) {
-            Logger.info("something went wrong in the crud repository : getAll") ;
-            throw error ;
-        }
     }
     
     async update(data , id){
-        try {
             const response = await this.model.update(data , {
                 where:{
                     id:id ,
                 }
             })
             return response ;
-        } catch (error) {
-            Logger.info("something went wrong in the crud repository : update "); 
-            throw error ;
-        }
     }
 }
 
