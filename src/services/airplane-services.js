@@ -7,7 +7,6 @@ const airplaneRepository = new AirplaneRepository()
 async function createAirplane(data){
     try {
         const airplane = await airplaneRepository.create(data) ;
-        console.log("inside airplane service try block ") ;
         return airplane ;       
     } catch (error) {
         if (error.name == "SequelizeValidationError") {

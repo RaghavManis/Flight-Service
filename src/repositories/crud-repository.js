@@ -1,9 +1,8 @@
 const { StatusCodes } = require("http-status-codes");
-const {Logger} = require("../config") ;
 const AppError = require("../utills/error/app-error");
 
 
-class crudrepository{
+class crudRepository{
     constructor(model){
         this.model = model ;
     }
@@ -51,4 +50,4 @@ class crudrepository{
     }
 }
 
-module.exports = crudrepository ;
+module.exports = crudRepository ;
