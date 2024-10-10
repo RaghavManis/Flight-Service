@@ -161,3 +161,19 @@ app.use("/api" , router) ;
  * npx sequelize db:seed:all   ---> after updating the seed files we will run thos command to aupdate the table with that entries 
  * npx sequelize db:seed:undo:all   ---> for undo the changes in seed files 
  */
+
+/**
+ * HOW CAN YOU IDENTIFY THAT WHICH CONSTRAINTS KEY OF WHICH TABLE IS REFRENCING TO WHICH TABLE
+ * 
+ * SELECT * 
+ * FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE 
+ * WHERE TABLE_NAME = 'foreign_key_table_name' 
+ * AND CONSTRAINT_SCHEMA = 'database_name';   ----> in whole query no need to mention name of table which was refrenced
+
+ */
+
+/**
+ * command use for creating a migration file which will be use for associating two models
+ * 
+ * npx sequelize migration:generate --name update-city-airport-association
+ */
