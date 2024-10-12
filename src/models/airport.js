@@ -13,24 +13,32 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsTo(models.City,{  // SETTING UP THE DETAILS AT THE JS LEVEL 
         foreignKey:'cityId',   // AIRPORT KEY WHICH IS POINTING TIO THE PRIMARY KEY OF CITY 
-        onDelete:'CASCADE' ,   // ADDING EXTRA FEATURES 
+        // onDelete:'CASCADE' ,   // ADDING EXTRA FEATURES 
         // onUpdate:'CASCADE'
+      }) ;
+      this.hasMany(models.Flight , {
+        foreignKey:"departureAirportId" ,
+        as:"departureAirport" ,
+      }) ;
+      this.hasMany(models.Flight , {
+        foreignKey : "arrivalAirportId" ,
+        as: "arrivalAirpoprt" ,
       })
     }
   }
   Airport.init({
     name:{
-      type:DataTypes.string ,
+      type:DataTypes.STRING ,
       allowNull:false ,
       unique:true
     } ,
     code:{
-      type:DataTypes.string ,
+      type:DataTypes.STRING ,
       unique:true ,
       allowNull:false,
     } ,
     address:{
-      type:DataTypes.string ,
+      type:DataTypes.STRING ,
       unique:true
     } ,
     cityId:{

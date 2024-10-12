@@ -6,10 +6,12 @@ const { application } = require("express");
 
 async function createAirplane(req , res){
     try {
+        console.log("model - " + req.body.modelNumber + ",  capacity - "+ req.body.capacity) ;
         const airplane = await AirplaneService.createAirplane({
             modelNumber:req.body.modelNumber ,
             capacity:req.body.capacity ,
         })
+        // console.log(airplane) ;
         SuccessResponse.data = airplane ;
         return res.status(StatusCodes.CREATED)
                   .json(SuccessResponse)
@@ -23,6 +25,7 @@ async function createAirplane(req , res){
 async function getAirplanes(req  ,res){
     try {
         const airplane = await AirplaneService.getAirplanes() ;
+        console.log("inside airplane controller") ;
         SuccessResponse.data = airplane ;
         return res
                  .status(StatusCodes.OK)
@@ -30,8 +33,8 @@ async function getAirplanes(req  ,res){
     } catch (error) {
         ErrorResponse.data = error ;
         return res
-                 .status(error.statusCode)
-                 .json(ErrorResponse) ;
+                 .status(error.statusCode) 
+                 .json(ErrorResponse) ;   
     }
 }
 
@@ -52,16 +55,19 @@ async function getAirplane(req , res){
 
 async function destroyAirplane(req, res){
     try {
+        console.log("airplane id which have to be deleted - " + req.params.id) ;
         const airplane = AirplaneService.destroyAirplane(req.params.id) ;
+        console.log("successfully deleted ") ;
+        console.log(airplane) ;
         SuccessResponse.data = airplane ;
         return res
-                 .status(StatusCodes.OK)
-                 .json(SuccessResponse) ;
+                .status(StatusCodes.OK)
+                .json(SuccessResponse) ;
     } catch (error) {
-        if(error.statusCode == StatusCodes.NOT_FOUND){
-            throw new AppError("airplane you requested to remove is not in database " , error.statusCode) ;
-        }
-        throw new AppError("not able to delete the airplane you want to remove " , StatusCodes.NOT_FOUND) ;
+        ErrorResponse.error = error ;
+        return res
+                 .status(error.statusCode)
+                 .json(ErrorResponse) ;
     }
 }
 
@@ -76,11 +82,19 @@ async function updateAirplane(req, res){
                  .status(StatusCodes.OK)
                  .json(SuccessResponse) ;
     } catch (error) {
-        if(error.statusCode == StatusCodes.NOT_FOUND){
-            throw new AppError("airplane you requested to update is not in database " , error.statusCode) ;
-        }
-        throw new AppError("not able to update the airplane you want to update " , StatusCodes.NOT_FOUND) ;
+        ErrorResponse.error = error ;
+        return res
+                 .status(error.statusCode)
+                 .json(ErrorResponse) ;
     }
+    // I don't kno why but this code also working as the above code 
+    //  catch (error) {
+    //     if(error.statusCode == StatusCodes.NOT_FOUND){
+    //         throw new AppError("airplane you requested to update is not in database " , error.statusCode) ;
+    //     }
+    //     throw new AppError("not able to update the airplane you want to update " , StatusCodes.NOT_FOUND) ;
+    // }
+
 }
 
 module.exports = {

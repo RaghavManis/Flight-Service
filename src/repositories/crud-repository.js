@@ -12,16 +12,29 @@ class crudRepository{
             return response ;
     }
 
-    async destroy(data){ 
-            const response = await this.model.destroy({
-                where:{
-                    id:data ,
-                }
-            }) ;
-            if(!response){
-                throw new AppError("data you are requested to delete is not in the database" , StatusCodes.NOT_FOUND) ;
+    // async destroy(id){ 
+    //     const response = await this.model.destroy({
+    //         where:{
+    //             id:id ,   
+    //         }
+    //     }) ;
+    //     console.log("inside crud repo ")
+    //         if(!response){
+    //             throw new AppError("data you are requested to delete is not in the database" , StatusCodes.NOT_FOUND) ;
+    //         }
+    //         return response ;
+    // }
+    async destroy(data) {
+        const response = await this.model.destroy({
+            where: {
+                id: data
             }
-            return response ;
+        });
+        console.log("------------",response);
+        if(response == 0){
+            throw new AppError("airplane you requested for deleting is not on the database" , StatusCodes.NOT_FOUND) ;  
+        }
+        return response;
     }
 
     async get(id){ 
@@ -37,16 +50,34 @@ class crudRepository{
             return response ;
     }
     
-    async update(data , id){
-            const response = await this.model.update(data , {
-                where:{
-                    id:id ,
-                }
-            })
-            if(!response){
-                throw new AppError("data you are looking for to update is not in the database" , StatusCodes.NOT_FOUND) ;
+    // async update(data , id){
+    //         const response = await this.model.update(data , {
+    //             where:{
+    //                 id:id ,
+    //             }
+    //         })
+    //         if(!response){
+    //             throw new AppError("data you are looking for to update is not in the database" , StatusCodes.NOT_FOUND) ;
+    //         }
+    //         return response ;
+    // }  
+    async update(data , id) { 
+        const [updatedRows] = await this.model.update(data, {
+            where: {   
+                id: id ,
             }
-            return response ;
+        });
+        console.log("type of updated rows : " + typeof updatedRows + ",,, value = " + updatedRows) ;
+        if (updatedRows === 0) {
+            // If no rows were updated, throw a NOT FOUND error
+            console.log("handling the error") ;
+            throw new AppError("The data  you want to update is not present in the database", StatusCodes.NOT_FOUND);
+        }
+       
+        // Fetch the updated airplane and return it
+        const updatedData = await this.model.findByPk(id);
+        console.log(typeof updatedData); 
+        return updatedData;
     }
 }
 

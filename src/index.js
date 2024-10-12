@@ -15,7 +15,7 @@ app.listen(ServerConfig.PORT , ()=>{
 // console.log("inside main index.js")
 app.use("/api" , router) ;
 
-
+   
 
 /**
  *   what is process and what is process.env ?
@@ -164,6 +164,7 @@ app.use("/api" , router) ;
 
 /**
  * HOW CAN YOU IDENTIFY THAT WHICH CONSTRAINTS KEY OF WHICH TABLE IS REFRENCING TO WHICH TABLE
+ * (QUERY TO CHECK CONSTRAINT IS APPLIED OR NOT )
  * 
  * SELECT * 
  * FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE 

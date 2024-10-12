@@ -2,7 +2,7 @@ const {AirplaneRepository} = require("../repositories");
 const {StatusCodes} = require("http-status-codes") ;
 const AppError = require("../utills/error/app-error") ;
 
-const airplaneRepository = new AirplaneRepository()
+const airplaneRepository = new AirplaneRepository();
 
 async function createAirplane(data){
     try {
@@ -14,7 +14,7 @@ async function createAirplane(data){
             
             error.errors.forEach((err) => {
                 explanation.push(err.message);
-            });
+            });   
             throw new AppError(explanation, StatusCodes.BAD_REQUEST);
         }
         // Throwing a generic Internal Server Error if the error is not a validation error
@@ -25,6 +25,7 @@ async function createAirplane(data){
 async function getAirplanes(){
     try {
         const airplanes = await airplaneRepository.getAll() ;
+        console.log("inside airplane services ") ;
         return airplanes ;
     } catch (error) {
         throw new AppError('Cannot fetch details off all airplanes ', StatusCodes.INTERNAL_SERVER_ERROR);
@@ -45,13 +46,16 @@ async function getAirplane(id){
 
 async function destroyAirplane(data){
     try {
+        console.log("id inside the airplane service is : " + data)  
         const airplane = await airplaneRepository.destroy(data) ;
+        console.log(airplane);
         return airplane ;
-    } catch (error) {
+    }catch (error) {    
         if(error.statusCode == StatusCodes.NOT_FOUND){
-            throw new AppError("airplane you want to delete is not present in database " , error.statusCode) ;
+            console.log("inside the airplane service. ");  
+            throw new AppError("airplane you want to update is not present in database " , StatusCodes.NOT_FOUND) ;
         }
-        throw new AppError("can't delete the airplane you requested to delete " , StatusCodes.INTERNAL_SERVER_ERROR) ;
+        throw new AppError("can't update the airplane you requested to update " , StatusCodes.INTERNAL_SERVER_ERROR) ;
     }
 }
 
