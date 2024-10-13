@@ -9,24 +9,12 @@ class crudRepository{
 
     async create(data){ // data will be in object form 
             console.log("inside crud repo(create function)") ;
+            // console.log(data) ;
             const response = await this.model.create(data) ;
-            console.log(data) ;
             console.log("respone in crud repo ------ "+response) ;
             return response ;
         }
         
-        // async destroy(id){ 
-            //     const response = await this.model.destroy({
-                //         where:{
-                    //             id:id ,   
-                    //         }
-                    //     }) ;
-                    //     console.log("inside crud repo ")
-                    //         if(!response){
-                        //             throw new AppError("data you are requested to delete is not in the database" , StatusCodes.NOT_FOUND) ;
-                        //         }
-                        //         return response ;
-                        // }
     async destroy(data) {
         const response = await this.model.destroy({
             where: {
@@ -51,9 +39,9 @@ class crudRepository{
     
     async getAll(){ // data will be in object form 
         const response = await this.model.findAll() ;
-        console.log("inside getAll of crud repo -----" ) ;
-        console.log("typeof response in getAll in crud repo ---" + typeof response) ;
-        console.log("response in getAll in crud repo -------"+ response) ;
+        // console.log("inside getAll of crud repo -----" ) ;
+        // console.log("typeof response in getAll in crud repo ---" + typeof response) ;
+        // console.log("response in getAll in crud repo -------"+ response) ;
         return response ;
     }
     
@@ -83,7 +71,7 @@ class crudRepository{
        
         // Fetch the updated airplane and return it
         const updatedData = await this.model.findByPk(id);
-        console.log(typeof updatedData); 
+        // console.log(typeof updatedData); 
         return updatedData;
     }
 }

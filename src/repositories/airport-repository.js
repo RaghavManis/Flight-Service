@@ -3,8 +3,6 @@ const {Airport} = require("../models")
 
 class AirportRepository extends crudRepository{
     constructor(){
-        console.log(typeof Airport) ;
-        console.log(Airport) ;
         super(Airport) ;
     }
 }
