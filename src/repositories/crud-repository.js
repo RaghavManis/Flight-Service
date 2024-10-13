@@ -8,46 +8,53 @@ class crudRepository{
     }
 
     async create(data){ // data will be in object form 
+            console.log("inside crud repo(create function)") ;
             const response = await this.model.create(data) ;
+            console.log(data) ;
+            console.log("respone in crud repo ------ "+response) ;
             return response ;
-    }
-
-    // async destroy(id){ 
-    //     const response = await this.model.destroy({
-    //         where:{
-    //             id:id ,   
-    //         }
-    //     }) ;
-    //     console.log("inside crud repo ")
-    //         if(!response){
-    //             throw new AppError("data you are requested to delete is not in the database" , StatusCodes.NOT_FOUND) ;
-    //         }
-    //         return response ;
-    // }
+        }
+        
+        // async destroy(id){ 
+            //     const response = await this.model.destroy({
+                //         where:{
+                    //             id:id ,   
+                    //         }
+                    //     }) ;
+                    //     console.log("inside crud repo ")
+                    //         if(!response){
+                        //             throw new AppError("data you are requested to delete is not in the database" , StatusCodes.NOT_FOUND) ;
+                        //         }
+                        //         return response ;
+                        // }
     async destroy(data) {
         const response = await this.model.destroy({
             where: {
                 id: data
             }
         });
-        console.log("------------",response);
+        // console.log("response in crud repo outside the if condition  --> ",response);
         if(response == 0){
+            // console.log("response in crud repo inside condition of not present --> ",response);
             throw new AppError("airplane you requested for deleting is not on the database" , StatusCodes.NOT_FOUND) ;  
         }
         return response;
     }
-
+    
     async get(id){ 
-            const response = await this.model.findByPk(id) ;
-            if(!response){
-                throw new AppError("data you are looking for is not in the database" , StatusCodes.NOT_FOUND) ;
-            }
-            return response ;
+        const response = await this.model.findByPk(id) ;
+        if(!response){
+            throw new AppError("data you are looking for is not in the database" , StatusCodes.NOT_FOUND) ;
+        }
+        return response ;
     } 
     
     async getAll(){ // data will be in object form 
-            const response = await this.model.findAll() ;
-            return response ;
+        const response = await this.model.findAll() ;
+        console.log("inside getAll of crud repo -----" ) ;
+        console.log("typeof response in getAll in crud repo ---" + typeof response) ;
+        console.log("response in getAll in crud repo -------"+ response) ;
+        return response ;
     }
     
     // async update(data , id){

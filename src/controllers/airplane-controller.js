@@ -1,12 +1,10 @@
 const {AirplaneService} = require("../services") ;
 const {StatusCodes} = require("http-status-codes") ;
 const {SuccessResponse , ErrorResponse} = require("../utills/common") ;
-const AppError = require("../utills/error/app-error");
-const { application } = require("express");
 
 async function createAirplane(req , res){
     try {
-        console.log("model - " + req.body.modelNumber + ",  capacity - "+ req.body.capacity) ;
+        // console.log("model - " + req.body.modelNumber + ",  capacity - "+ req.body.capacity) ;
         const airplane = await AirplaneService.createAirplane({
             modelNumber:req.body.modelNumber ,
             capacity:req.body.capacity ,
@@ -16,22 +14,24 @@ async function createAirplane(req , res){
         return res.status(StatusCodes.CREATED)
                   .json(SuccessResponse)
     } catch (error) {
+        ErrorResponse.data = 0 ; 
         ErrorResponse.error = error ;
         return res
                 .status(error.statusCode)
                 .json(ErrorResponse) ;
     }
 }
+
 async function getAirplanes(req  ,res){
     try {
         const airplane = await AirplaneService.getAirplanes() ;
-        console.log("inside airplane controller") ;
+        // console.log("inside airplane controller") ;
         SuccessResponse.data = airplane ;
         return res
                  .status(StatusCodes.OK)
                  .json(SuccessResponse)
     } catch (error) {
-        ErrorResponse.data = error ;
+        ErrorResponse.error = error ;
         return res
                  .status(error.statusCode) 
                  .json(ErrorResponse) ;   
@@ -55,16 +55,18 @@ async function getAirplane(req , res){
 
 async function destroyAirplane(req, res){
     try {
-        console.log("airplane id which have to be deleted - " + req.params.id) ;
-        const airplane = AirplaneService.destroyAirplane(req.params.id) ;
-        console.log("successfully deleted ") ;
-        console.log(airplane) ;
+        // console.log("airplane id which have to be deleted - " + req.params.id) ;
+        const airplane = await AirplaneService.destroyAirplane(req.params.id) ;
+        // console.log("successfully deleted ") ;
+        console.log("response in airplane controller ---> " + airplane) ;  
         SuccessResponse.data = airplane ;
         return res
                 .status(StatusCodes.OK)
                 .json(SuccessResponse) ;
     } catch (error) {
+        // console.log("inside catch block of airplane controller--> "+ 0)
         ErrorResponse.error = error ;
+        ErrorResponse.data = 0 ;
         return res
                  .status(error.statusCode)
                  .json(ErrorResponse) ;

@@ -25,7 +25,7 @@ async function createAirplane(data){
 async function getAirplanes(){
     try {
         const airplanes = await airplaneRepository.getAll() ;
-        console.log("inside airplane services ") ;
+        // console.log("inside airplane services ") ;
         return airplanes ;
     } catch (error) {
         throw new AppError('Cannot fetch details off all airplanes ', StatusCodes.INTERNAL_SERVER_ERROR);
@@ -46,13 +46,14 @@ async function getAirplane(id){
 
 async function destroyAirplane(data){
     try {
-        console.log("id inside the airplane service is : " + data)  
+        // console.log("id inside the airplane service is : " + data)  
         const airplane = await airplaneRepository.destroy(data) ;
-        console.log(airplane);
+        console.log("response in airplane service inside try block ---> "+airplane);
         return airplane ;
     }catch (error) {    
         if(error.statusCode == StatusCodes.NOT_FOUND){
-            console.log("inside the airplane service. ");  
+            console.log("response in airplane service inside try block ---> "+0);
+            // console.log("inside the airplane service. ");  
             throw new AppError("airplane you want to update is not present in database " , StatusCodes.NOT_FOUND) ;
         }
         throw new AppError("can't update the airplane you requested to update " , StatusCodes.INTERNAL_SERVER_ERROR) ;

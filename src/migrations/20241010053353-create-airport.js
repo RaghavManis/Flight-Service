@@ -29,11 +29,13 @@ module.exports = {
       } ,
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE ,
+        // defaultValue :0 ,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        // defaultValue : 0 ,
       }
     });
   },
