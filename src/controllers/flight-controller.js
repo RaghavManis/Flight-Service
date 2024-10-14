@@ -16,13 +16,14 @@ async function createFlight(req , res){
             boardingGate:req.body.boardingGate ,
             totalSeats:req.body.totalSeats ,
         })
-        console.log("inside try block of flight controller") ;
-        SuccessResponse.message = "successfully an airport " ;
+        // console.log("inside try block of flight controller") ;
+        SuccessResponse.message = "successfully creted a flight " ;
         SuccessResponse.data = Flight ;
-        return res.status(StatusCodes.CREATED)
-        .json(SuccessResponse)
+        return res
+                  .status(StatusCodes.CREATED)
+                  .json(SuccessResponse)
     } catch (error) {
-        console.log("inside catch block of flight controller") ;
+        // console.log("inside catch block of flight controller") ;
         ErrorResponse.data = 0 ; 
         ErrorResponse.error = error ;
         return res
@@ -30,6 +31,25 @@ async function createFlight(req , res){
                 .json(ErrorResponse) ;
     }
 }
+async function getAllFlights(req , res){
+    try {
+        const flights = await FlightService.getAllFlights(req.query) ;
+        console.log("inside flight controller , req query is -----> " , req.query) ;
+        SuccessResponse.message = "successfully an airport " ;
+        SuccessResponse.data = flights ;
+        return res
+                  .status(StatusCodes.CREATED)
+                  .json(SuccessResponse)
+    } catch (error) {
+        console.log("error in getAllFlights in flight controller is " + error) ;
+        ErrorResponse.data = 0 ; 
+        ErrorResponse.error = error ;
+        return res
+                .status(error.statusCode)
+                .json(ErrorResponse) ;
+    }
+}
+
 
 async function getFlights(req  ,res){
     try {
@@ -114,4 +134,5 @@ module.exports = {
     getFlight ,
     destroyFlight ,
     updateFlight ,
+    getAllFlights ,
 }

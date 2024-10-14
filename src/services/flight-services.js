@@ -1,6 +1,7 @@
 const {FlightRepository} = require("../repositories");
 const {StatusCodes} = require("http-status-codes") ;
 const AppError = require("../utills/error/app-error") ;
+const { Op } = require("sequelize");
 
 const flightRepository = new FlightRepository();
 
@@ -23,6 +24,47 @@ async function createFlight(data){
         // Throwing a generic Internal Server Error if the error is not a validation error
         console.log("main error is here ----------->" ,error) ;
         throw new AppError('Cannot create a new flight object', StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+async function getAllFlights(query){
+    const customFilter ={} ;// whatever the variables you are going to create in customFilter it must be same as what you declared in models,because this customFilter object will be compare to same variables in flight repository 
+    let sortFilter = [] ;
+    // const tripEndingTime = "23:59:59" ;
+    const tripEndingTime = " 23:59:59" ; // can you tell me what is the difference between this two lines ........................................................................................................there is a space before starting the time in correct code
+    if(query.trips){
+        [departureAirportId , arrivalAirportId] = query.trips.split("-") ;
+        customFilter.departureAirportId = departureAirportId ;
+        customFilter.arrivalAirportId = arrivalAirportId ;
+    }
+    // check that both departure and arrival airport should not be same  ;
+    if(query.price){
+        [minPrice , maxPrice] = query.price.split("-") ;
+        customFilter.price = {
+            [Op.between] : [(minPrice == undefined ? 0 : minPrice) , (maxPrice == undefined ? 20000 : maxPrice)] ,
+        }
+    }
+    if(query.travellers){
+        customFilter.totalSeats = {
+            [Op.gte] : query.travellers ,
+        }
+    }
+    if(query.tripDate){
+        customFilter.departureTime = {
+            [Op.between] : [query.tripDate , query.tripDate + tripEndingTime] ,
+        }
+    }
+    if(query.sort){
+        const params = query.sort.split(',') ; 
+        const sortFilters = params.map((param)=>{ return param.split("_")}) ; 
+        // const sortFilters = params.map((param)=> param.split("_")) ;  // use any one of above 
+
+        sortFilter = sortFilters ;
+    }
+    try {
+        const flights = await flightRepository.getAllFlights(customFilter , sortFilter) ;
+        return flights ;
+    } catch (error) {
+        throw new AppError('Cannot get flights for provided data', StatusCodes.BAD_REQUEST);
     }
 }
 
@@ -83,4 +125,5 @@ module.exports = {
     getFlight ,
     destroyFlight ,
     updateFlight ,
+    getAllFlights
 }

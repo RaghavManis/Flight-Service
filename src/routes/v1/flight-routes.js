@@ -9,7 +9,11 @@ const {FlightMiddleware} = require("../../middlewares") ;
 router.post("/" ,FlightMiddleware.validateCreateRequest , FlightController.createFlight) ;
 
 // /api/get/airplanes get request
-router.get("/" , FlightController.getFlights) ;
+// router.get("/" , FlightController.getFlights) ;   // it may contradicting to the below one api
+
+// /api/get/airplanes get request
+router.get("/" , FlightController.getAllFlights) ; 
+
 
 // /api/get/airplanes:id  get request
 router.get("/:id" , FlightController.getFlight) ;
