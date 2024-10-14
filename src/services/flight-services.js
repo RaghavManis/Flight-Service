@@ -64,6 +64,7 @@ async function getAllFlights(query){
         const flights = await flightRepository.getAllFlights(customFilter , sortFilter) ;
         return flights ;
     } catch (error) {
+        console.log("error in getAllFlight in flight service is --->" + error ) ;
         throw new AppError('Cannot get flights for provided data', StatusCodes.BAD_REQUEST);
     }
 }

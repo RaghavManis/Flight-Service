@@ -34,14 +34,14 @@ async function createFlight(req , res){
 async function getAllFlights(req , res){
     try {
         const flights = await FlightService.getAllFlights(req.query) ;
-        console.log("inside flight controller , req query is -----> " , req.query) ;
+        // console.log("inside flight controller , req query is -----> " , req.query) ;
         SuccessResponse.message = "successfully an airport " ;
         SuccessResponse.data = flights ;
         return res
                   .status(StatusCodes.CREATED)
                   .json(SuccessResponse)
     } catch (error) {
-        console.log("error in getAllFlights in flight controller is " + error) ;
+        console.log("error in getAllFlights in flight controller is ------> " + error) ;
         ErrorResponse.data = 0 ; 
         ErrorResponse.error = error ;
         return res

@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.hasMany(models.Airport ,{  // setting up the relations at the js level
         foreignKey:'cityId', // key of airport on which we are pointing primary key of city table
+        sourceKey : 'id' ,
         onDelete:'CASCADE'
       })
     }

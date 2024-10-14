@@ -22,7 +22,7 @@ module.exports = {
         } , 
         onDelete: "CASCADE" ,
       },
-      departureAirportid: {
+      departureAirportId: {
         type: Sequelize.STRING,
         allowNull:false ,
         references:{
