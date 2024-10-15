@@ -8,10 +8,10 @@ class crudRepository{
     }
 
     async create(data){ // data will be in object form 
-            console.log("inside crud repo(create function)") ;
+            // console.log("inside crud repo(create function)") ;
             // console.log(data) ;
             const response = await this.model.create(data) ;
-            console.log("respone in crud repo ------ "+response) ;
+            // console.log("respone in crud repo ------ "+response) ;
             return response ;
         }
         
@@ -44,25 +44,13 @@ class crudRepository{
         // console.log("response in getAll in crud repo -------"+ response) ;
         return response ;
     }
-    
-    // async update(data , id){
-    //         const response = await this.model.update(data , {
-    //             where:{
-    //                 id:id ,
-    //             }
-    //         })
-    //         if(!response){
-    //             throw new AppError("data you are looking for to update is not in the database" , StatusCodes.NOT_FOUND) ;
-    //         }
-    //         return response ;
-    // }  
     async update(data , id) { 
         const [updatedRows] = await this.model.update(data, {
             where: {   
                 id: id ,
             }
         });
-        console.log("type of updated rows : " + typeof updatedRows + ",,, value = " + updatedRows) ;
+        // console.log("type of updated rows : " + typeof updatedRows + ",,, value = " + updatedRows) ;
         if (updatedRows === 0) {
             // If no rows were updated, throw a NOT FOUND error
             console.log("handling the error") ;

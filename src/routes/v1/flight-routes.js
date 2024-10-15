@@ -24,5 +24,8 @@ router.delete("/:id" , FlightController.destroyFlight) ;
 // api/get/airplanes/id patch request 
 router.patch("/:id" , FlightController.updateFlight) ;
 
+// api/get/flights/:id/seats
+router.patch("/:id/seats" ,FlightMiddleware.validateUpdateSeats , FlightController.updateSeats) ;
+
 module.exports = router ;
 

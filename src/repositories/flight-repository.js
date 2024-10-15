@@ -1,6 +1,8 @@
 const crudRepository = require("./crud-repository") ;
 const {Flight , Airplane , Airport , City} = require("../models") ;
-
+const db = require("../models") ;
+const {Sequelize} = require("sequelize") ;
+const {addRowLockOnFlights} = require("./queries") ;
 class FlightRepository extends crudRepository{
     constructor(){
         super(Flight) ;
@@ -78,7 +80,22 @@ class FlightRepository extends crudRepository{
         });
         return response;
       }
-      
+    async updateRemainingSeats(flightId , seats , dec = "true"){
+        // listen our model name is in singular but since sequelize take it plural by default so give them plural (bhulva do ) ;
+        // await db.sequelize.query(`SELECT * from Flights WHERE Flights.id = ${flightId} FOR UPDATE ;` ) ; // code for applying lock
+        await db.sequelize.query(addRowLockOnFlights(flightId)) ;  // ----> upper raw query is bad practice 
+        console.log("outside if else in flight repo in update") ;
+        const flight = await Flight.findByPk(flightId) ;
+        if(dec === "true"){
+          console.log("executing decrement") ;
+          const response = await flight.decrement("totalSeats" , {by : seats}) ;
+          return response ;
+        }else if(dec === "false"){
+          console.log("executing increment") ;
+          const response = await flight.increment("totalSeats" , {by : seats}) ;
+          return response ;
+        }
+    }
 }
 
 module.exports = FlightRepository ;

@@ -93,7 +93,19 @@ function validateCreateRequest(req , res , next){
     next() ;
 }
 
+async function validateUpdateSeats(req , res , next){
+    if(!req.body.seats){
+        ErrorResponse.message = "something wrong in the request body" ;
+        ErrorResponse.error = new AppError("you don't have given correct no of seats" , StatusCodes.BAD_REQUEST) ;
+        // console.log("invalid airport cityId") ;
+        return res
+                 .status(StatusCodes.BAD_REQUEST)
+                 .json(ErrorResponse) ;
+    }
+    next() ;
+}
 
 module.exports = {
     validateCreateRequest ,
+    validateUpdateSeats ,
 }

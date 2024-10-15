@@ -69,7 +69,15 @@ async function getAllFlights(query){
         throw new AppError('Cannot get flights for provided data', StatusCodes.BAD_REQUEST);
     }
 }
-
+async function updateSeats(data){
+    try {
+        const flight = await flightRepository.updateRemainingSeats(data.flightId , data.seats , data.dec) ;
+        return flight ;
+    } catch (error) {
+        console.log("inside flight service -- error is --> " + error) ;
+        throw new AppError('Cannot get flights for provided data', StatusCodes.BAD_REQUEST);
+    }
+}
 async function getFlights(){
     try {
         const flights = await flightRepository.getAll() ;
@@ -127,5 +135,6 @@ module.exports = {
     getFlight ,
     destroyFlight ,
     updateFlight ,
-    getAllFlights
+    getAllFlights ,
+    updateSeats ,
 }

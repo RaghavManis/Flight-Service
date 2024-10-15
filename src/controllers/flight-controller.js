@@ -50,6 +50,27 @@ async function getAllFlights(req , res){
     }
 }
 
+async function updateSeats(req , res){
+    try {
+        const flight = await FlightService.updateSeats({
+            flightId : req.params.id ,
+            seats : req.body.seats ,
+            dec : req.body.dec ,
+        })
+        SuccessResponse.data = flight ;
+        SuccessResponse.message = "succesfully updated the seats after booking " ;
+        return res
+                 .status(StatusCodes.CREATED) 
+                 .json(SuccessResponse) ;
+    } catch (error) {
+        console.log("error in updateSeats in flight controller is ------> " + error) ;
+        ErrorResponse.data = 0 ; 
+        ErrorResponse.error = error ;
+        return res
+                .status(error.statusCode)
+                .json(ErrorResponse) ;
+    }
+}
 
 async function getFlights(req  ,res){
     try {
@@ -135,4 +156,5 @@ module.exports = {
     destroyFlight ,
     updateFlight ,
     getAllFlights ,
+    updateSeats ,
 }

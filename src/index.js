@@ -15,7 +15,104 @@ app.listen(ServerConfig.PORT , ()=>{
 // console.log("inside main index.js")
 app.use("/api" , router) ;
 
-   
+/**
+ * 
+ * folder creation 
+ * npm init(in system terminal or vs code terminal ) ...>detailed explaination of this command is some where below 
+ * git init
+ * npm i dotenv (install all listed package in root folder of project where package.json file is located)
+ * npm i express
+ * npm i http-status-codes
+ * npm i sequelize
+ * npm install mysql2
+ * npm i nodemon
+ * npm install sequelize-cli
+ * 
+ * 
+ * Reasoning:
+ * dotenv, express, http-status-codes, sequelize, and mysql2 are core dependencies for your project, so install them first.
+ * nodemon and sequelize-cli are tools to assist with development, so you can install them afterward.
+ * 
+ * Running the commands in the root folder ensures that your package.json and package-lock.json files are properly updated with the dependencies.
+
+ */
+
+/**
+ * THINGS WHICH HAVE TO PERFORM , WHENEVERE WE USE GIT CLONE 
+ * 
+ * npm i (in main folder)
+ * set enviroment variable and set port (.env) in main folder 
+ * npx sequelize init (inside src folder)
+ * for using the same database which where used in project from which you clone ........copy paste that exact information in here in config.json(in config folder)
+ * 
+ * 
+ * 
+ * purpose of npx sequelize init (run where you want all this folder ... till now in learned that in src)
+ * 
+ * sequelize init initializes a basic Sequelize setup by creating the following folders and configuration files in your project:
+ * config/: Contains the config.json file where database connection settings are defined.
+ * models/: A folder to store Sequelize models (JavaScript/TypeScript representations of your database tables).
+ * migrations/: A folder for database migration files (for schema changes).
+ * seeders/: A folder for seed files, used to pre-populate your database with data.
+ * 
+ * The config/ folder will contain database configuration files that are necessary for Sequelize to connect to the database, 
+ * and they should be accessible from the root.
+ */
+
+/**
+ * npm init:
+
+ * Sets up a new project by creating a package.json file.
+ * The package.json file will list the project metadata (like name, version, etc.), and it will automatically update when you install new packages.
+ * Initially,the dependencies section in the package.json file will be empty,but as you install packages,they'll be added to the dependencies section.
+ * 
+ * npm i (or npm install):
+ * 
+ * Installs all dependencies listed in the package.json file.
+ * This is commonly used when you clone a project from GitHub or any other source, and the node_modules folder is not included. 
+ * You use npm i to install all the required packages, as specified in package.json.
+ */
+
+/**
+ * package-lock.json
+ * 
+ * The package-lock.json file is created and updated by npm install.
+ * It locks exact versions of all dependencies to ensure consistent and stable installations across different environments.
+ * It speeds up installations and helps prevent dependency-related bugs caused by different versions of packages.
+ * When you run npm init, it only creates a package.json file, not the package-lock.json file.
+ * The package-lock.json file is created when you run npm install or npm i after adding dependencies to your project.
+ * 
+ * node_modules 
+ * 
+ * When you run npm init, it creates the package.json file but does not create the node_modules folder.
+ * As soon as you install packages using npm i or npm install <package>, Node.js downloads the specified packages and places them in the node_modules folder.
+ * npm install: Installs all dependencies listed in package.json and creates the node_modules folder if it doesn’t exist.
+ */
+
+/**
+ * it means ......package.json contain name of dependencies .........package-lock.json contain details of that dependencies and node_modules will actually contain the packages for further use in project 
+ * 
+ * 1. package.json:
+ * This file contains the list of dependencies (along with other metadata about your project) that your project requires.
+ * It specifies the names and version ranges of the packages, but not their exact versions or internal structure.
+ * When you install a package using npm i <package>, it adds an entry to the dependencies or devDependencies section of package.json.
+ * 
+ * 2. package-lock.json:
+ * This file contains the exact version details of each installed dependency and its nested dependencies (i.e., packages that the dependencies depend on).
+ * It records the exact version of each package installed, along with information about the resolved package URLs and other metadata like checksum hashes.
+ * It ensures that when someone else (or you, on another machine) runs npm install, they get identical versions of all the dependencies as you had, even if package.json has version ranges.
+ * 
+ * 3. node_modules:
+ * This folder actually contains the installed package files themselves.
+ * It’s where npm stores all the code for the dependencies and sub-dependencies listed in package.json and package-lock.json.
+ * Your project directly requires the packages from this folder when running or building the application.
+ */
+
+
+
+
+
+
 
 /**
  *   what is process and what is process.env ?
@@ -215,4 +312,34 @@ app.use("/api" , router) ;
  * 
  * we can't use ---->  npx sequelize db:seed:all ----> it will seed again the seeded file 
  * we will use -----------> npx sequelize db:seed --name name_of_seeder_file_from_seeder_folder
+ */
+
+/**
+ * TO OPEN THE CURRENT DIRECTORY IN FILE EXPLORER ON WINDOWS , USE THIS COMMAND
+ * 
+ * explorer .    (replacemnet of open .     which is use in mac)
+
+ */
+
+
+/**
+ * COMMAND FOR REMOVING ORIGIN ( FROM THE GIT REMOTE COMMAND )
+ * 
+ * git remote rm origin
+ */
+
+/**
+ * YOU SHOULD ASK ONE QUESTION THAT , WHEN WE CREATE A MODEL IN OUR BOOKING SERVICE THEN HOW IT IS CREATED IN THE SAME DATABASE IN WHICH OTHER
+ *  MODELS ARE PRESENT OF THE MAIN PROJECT 
+ * 
+ * ANS IS SIMPLE , IN STARTING WHEN YOU RUN COMMAND NPX SEQUELIZE INIT THEN A FILE CONFIG.JSON CREATED , IN WHICH YOU HAVE EDITED THE INFORMATION
+ * ACCORDING TO THE MAIN PROJECT  SO THERE YOU MENTION THE DATABASE NAME, AND THAT'S HOW PRESENT BOOKING FOLDER IS ATTACHED WITH THE SAME DATABASE 
+ */
+
+/**
+ * WHAT COMMANDS WILL BE USE FOR SWITCHING BETWEEN MAIN AND MASTER 
+ * 
+ * GIT SWITCH MAIN (IF YOU ARE ON MASTER )
+ * GIT SWITCH MASTER (IF YOU ARE ON MAIN) ---> MAKE ENSURE THAT BEFORE SWITCHING YOU HAVE COMMITED THE CHANGES 
+ * 
  */
