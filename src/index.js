@@ -209,3 +209,10 @@ app.use("/api" , router) ;
  *      onDelete: 'CASCADE',
  *    });
  */
+
+/**
+ * WHEN SOME SEED FILES ARE ALREADY SEEDE THEN HOW CAN YOU SEED ONE MORE FILE AFTER CREATING IT
+ * 
+ * we can't use ---->  npx sequelize db:seed:all ----> it will seed again the seeded file 
+ * we will use -----------> npx sequelize db:seed --name name_of_seeder_file_from_seeder_folder
+ */
