@@ -50,6 +50,7 @@ async function getAllFlights(query){
     }
     if(query.tripDate){
         customFilter.departureTime = {
+            // [Op.eq] : query.tripDate ,
             [Op.between] : [query.tripDate , query.tripDate + tripEndingTime] ,
         }
     }

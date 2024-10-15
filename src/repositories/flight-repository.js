@@ -33,6 +33,7 @@ class FlightRepository extends crudRepository{
      *  }
      */
     async getAllFlights(filter, sort) {
+      // console.log("inside getAllFlights filter is -------> "+filter) ;
         const response = await Flight.findAll({
           where: filter,
           order: sort,

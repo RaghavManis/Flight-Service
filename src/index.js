@@ -178,3 +178,34 @@ app.use("/api" , router) ;
  * 
  * npx sequelize migration:generate --name update-city-airport-association
  */
+
+/**
+ * how association between two table will be make 
+ * 
+ * 1. at migration level 
+ * in migration file of the table in which foreign key will present , edit fereign key like this 
+ * departureAirportId: {
+ *      type: Sequelize.STRING,
+ *      allowNull:false ,
+ *      references:{
+ *        model:"Airports" ,
+ *        key:"code"
+ *      } ,
+ *    (THAT'S ALL AT MIGRATION FILE)
+ *
+ * 2. at js level(in models file)
+ * 
+ *  in table where foreign key is--------------------->
+ *  this.belongsTo(models.Airport, {
+ *      foreignKey: 'departureAirportId',
+ *      targetKey: 'code', 
+ *      as: 'departureAirport',
+ *    });
+ *
+ *    in table to which foreign key is pointing ----------------->
+ *    this.hasMany(models.Flight, {
+ *      foreignKey: 'departureAirportId',  // Flight's FK
+ *      sourceKey: 'code',   
+ *      onDelete: 'CASCADE',
+ *    });
+ */
