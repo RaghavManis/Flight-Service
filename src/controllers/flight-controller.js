@@ -14,7 +14,7 @@ async function createFlight(req , res){
             departureTime:req.body.departureTime ,
             price:req.body.price ,
             boardingGate:req.body.boardingGate ,
-            totalSeats:req.body.totalSeats ,
+            totalSeats:req.body.totalSeats , 
         })
         // console.log("inside try block of flight controller") ;
         SuccessResponse.message = "successfully creted a flight " ;

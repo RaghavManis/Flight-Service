@@ -18,7 +18,7 @@ class FlightRepository extends crudRepository{
      *                  model : Airplane ,
      *                  required : true ,
      *                  as :  "airplaneDetail",
-     *              } ,
+     *              } ,   
      *              {
      *                  model : Airport ,
      *                  required : true ,
@@ -83,17 +83,33 @@ class FlightRepository extends crudRepository{
     async updateRemainingSeats(flightId , seats , dec = "true"){
         // listen our model name is in singular but since sequelize take it plural by default so give them plural (bhulva do ) ;
         // await db.sequelize.query(`SELECT * from Flights WHERE Flights.id = ${flightId} FOR UPDATE ;` ) ; // code for applying lock
-        await db.sequelize.query(addRowLockOnFlights(flightId)) ;  // ----> upper raw query is bad practice 
-        console.log("outside if else in flight repo in update") ;
-        const flight = await Flight.findByPk(flightId) ;
-        if(dec === "true"){
-          console.log("executing decrement") ;
-          const response = await flight.decrement("totalSeats" , {by : seats}) ;
-          return response ;
-        }else if(dec === "false"){
-          console.log("executing increment") ;
-          const response = await flight.increment("totalSeats" , {by : seats}) ;
-          return response ;
+
+        // await db.sequelize.query(addRowLockOnFlights(flightId)) ;  // ----> upper raw query is bad practice, (code for applying lock )
+        // const flight = await Flight.findByPk(flightId) ;
+        // if(dec === "true"){
+        //   const response = await flight.decrement("totalSeats" , {by : seats}) ;
+        //   return response ;
+        // }else if(dec === "false"){
+        //   const response = await flight.increment("totalSeats" , {by : seats}) ;
+        //   return response ;
+        // }
+
+
+        // let's put this all code in transaction because we need this function when we start/cancel booking 
+        const transaction = await db.sequelize.transaction() ;
+        try {
+          await db.sequelize.query(addRowLockOnFlights(flightId)) ;
+          const flight = await Flight.findByPk(flightId) ;
+          if(dec == "true"){
+            await flight.decrement("totalSeats" , {by : seats} , {transaction}) ;
+          }else if (dec == "false"){
+            await flight.increment("totalSeats" , {by : seats} , {transaction}) ;
+          }
+          await transaction.commit() ;
+          return flight ;
+        } catch (error) {
+          transaction.rollback() ;
+          throw error ;  
         }
     }
 }
