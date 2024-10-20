@@ -343,3 +343,63 @@ app.use("/api" , router) ;
  * GIT SWITCH MASTER (IF YOU ARE ON MAIN) ---> MAKE ENSURE THAT BEFORE SWITCHING YOU HAVE COMMITED THE CHANGES 
  * 
  */
+
+/**
+ * rm -rf .git   (what does this command do)
+ * 
+ * The command rm -rf .git is a destructive command that will remove the .git directory and all its contents in the current working directory. Here's a breakdown of the command:
+
+ * rm: The remove command in Linux, used to delete files and directories.
+ * -r: Stands for recursive, which means it will delete the directory and everything inside it, including subdirectories and files.
+ * -f: Stands for force, which forces the removal without prompting for confirmation, even for write-protected files.
+ * .git: This is the hidden directory that stores all the metadata and version history for a Git repository.
+ */
+
+/**
+ * FLOW OF JWT IN AN APPLICATION :-->
+ * 
+ * Login/Authentication:
+ * 
+ * ->User enters credentials (username/password).
+ * ->Server verifies credentials.
+ * ->Server generates JWT with user-specific data (e.g., user ID, role, etc.).
+ * ->Server sends JWT to the client.
+ * 
+ * Subsequent API Calls:
+ * 
+ * ->Client sends the JWT along with each subsequent API request (typically in the HTTP Authorization header as Bearer <token>).
+ * ->Server verifies the JWT:
+ * ->Valid: If the token is valid, the server processes the request.
+ * ->Invalid/Expired: If the token is invalid or expired, the server rejects the request and responds with an error (e.g., 401 Unauthorized).
+ */
+
+/**
+ * WHERE WILL YOU APLLY THE ENCRYPTION ON PASSWORD OR ANY OTHER ATTRINUTES 
+ * 
+ * ans is in model befor returning (better if you visit the user model)
+ * 
+ * Users.beforeCreate(function encrypt(user){ 
+ *   const encryptedPassword = bcrypt.hashSync(user.password , +ServerConfig.SALT_ROUNDS) ; 
+ *   user.password = encryptedPassword ;
+ * })
+ * 
+ */
+
+/**
+ * In a forward proxy:
+
+ * -->A forward proxy acts as an intermediary between a client (like your computer) and the internet (or other servers). 
+      It sends requests to the internet on behalf of the client.
+ * -->The proxy represents the client. It acts on behalf of the client (you, the user) when sending requests to the internet or external servers.
+ * -->The forward proxy hides the client's identity (IP address) from the server.
+ * -->Use case: When you want to control access or hide your location while browsing the web.
+ * 
+ * -->In a reverse proxy:
+ * 
+ * -->A reverse proxy is the opposite of a forward proxy. It sits between clients (like users) and servers. 
+ *    Instead of representing the client like a forward proxy, it represents the server.
+ * -->The proxy represents the server. It acts on behalf of the server by receiving requests from clients and then 
+ *    forwarding them to the actual backend server(s).
+ * -->The reverse proxy hides the server's identity and location from the client.
+ * -->Use case: When you want to balance the load across servers, improve security, or manage traffic efficiently.
+ */
