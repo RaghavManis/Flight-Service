@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
                                 // ----> this will apper in the output when yuu execute flight api with filters , 
                                 //       if you not mention it here then by default it will come as model name 
       })
-
+    
       /**   ---> INSTEAD OF DOING THIS , APPLY BELOW CODE 
        *  this.belongsTo(models.Airport , {
        *    foreignKey : "departureAirportId" ,
@@ -26,11 +26,11 @@ module.exports = (sequelize, DataTypes) => {
        *  }) ;
        *  this.belongsTo(models.Airport ,{
        *    foreignKey : "arrivalAirportId" ,
-       *    as : "arrivalAirport" ,
+       *    as : "arrivalAirport" , 
        *  })
        * 
        */
-      this.belongsTo(models.Airport, {
+      this.belongsTo(models.Airport, { 
         foreignKey: 'departureAirportId',
         targetKey: 'code',  // things which you do letter in flight repo when it needed just do it here , and it is obious also to do it here to make things clear 
         as: 'departureAirport', // we are providing this alias name because flight is associated with airports multiple time so sequelize should not be confuse we will use alias (as)

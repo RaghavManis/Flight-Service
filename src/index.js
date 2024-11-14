@@ -38,12 +38,38 @@ app.use("/api" , router) ;
  */
 
 /**
- * THINGS WHICH HAVE TO PERFORM , WHENEVERE WE USE GIT CLONE 
+ * THINGS WHICH HAVE TO PERFORM, WHENEVERE WE USE GIT CLONE 
  * 
- * npm i (in main folder)
+ * npm i (in main folder) ----> see below code for working (58-69)
  * set enviroment variable and set port (.env) in main folder 
  * npx sequelize init (inside src folder)
  * for using the same database which where used in project from which you clone ........copy paste that exact information in here in config.json(in config folder)
+ * 
+ * after npx sequelize init and setting up the config.json.......go into src directory in terminal ....run this two command
+ * npx sequelize db:create ----> will create the database which you recently mention in config.json file 
+ * npx sequelize db:migrate ----> will create all the models present in your cloned project 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * When you run the command npm i (or npm install, which is equivalent) after cloning a project, it does the following:
+ * 
+ * Installs Dependencies:
+ * 
+ * npm i reads the package.json file in the project folder and identifies the packages listed under the dependencies and devDependencies sections.
+ * It then downloads these packages from the npm registry and installs them in a folder called node_modules within your project directory.
+ * This ensures that your project has all the libraries and tools it needs to run, matching the versions specified in package.json.
+ * 
+ * Creates a package-lock.json File (If Not Already Present):
+ * 
+ * If package-lock.json does not exist, npm i will generate it. This file locks the versions of your dependencies, ensuring that the exact versions are installed every time.
+ * If package-lock.json already exists, npm i uses this file to match dependency versions exactly.
+ * 
+ * 
+ * 
  * 
  * 
  * 
@@ -55,7 +81,7 @@ app.use("/api" , router) ;
  * migrations/: A folder for database migration files (for schema changes).
  * seeders/: A folder for seed files, used to pre-populate your database with data.
  * 
- * The config/ folder will contain database configuration files that are necessary for Sequelize to connect to the database, 
+ * The config folder will contain database configuration files that are necessary for Sequelize to connect to the database, 
  * and they should be accessible from the root.
  */
 
@@ -402,4 +428,72 @@ app.use("/api" , router) ;
  *    forwarding them to the actual backend server(s).
  * -->The reverse proxy hides the server's identity and location from the client.
  * -->Use case: When you want to balance the load across servers, improve security, or manage traffic efficiently.
+ */
+
+
+/**
+ * how will create the jwt token 
+ * 
+ * just call the creareToken(it's not built in) function after veryfing the password 
+ * in create function use sign function of bcrypt
+ * 
+ * /**
+ * 
+ * jwt.sign():
+ * 
+ * -> This method is used to create the JWT.
+ * -> jwt.sign(payload, secretOrPrivateKey, options) takes three arguments:
+ * 
+ * -> payload: This is the data you want to include in the token. In this case, it’s {id: user.id, email: user.email}.
+ * -> secretOrPrivateKey: This is the secret key used to sign the token (ServerConfig.JWT_SECRET). 
+ *    It ensures the token can be verified later by the server.
+ * -> options: Additional configurations like expiration time are provided here. expiresIn specifies how long the token will remain valid.
+ * 
+ * 
+ * async function createToken(input ){ // if password will match then this create token function will be called inside the user service
+ *     try {
+ *         const response = await jwt.sign(input , ServerConfig.JWT_SECRET , {expiresIn : ServerConfig.JWT_EXPIRY} ) ;
+ *         return response ;
+ *     } catch (error) {
+ *         console.log("error inside the try block of create token in auth.js in common in utills ---> " + error) ;
+ *         throw error ;
+ *     }
+ * }
+ */
+
+/**
+ * how will you perform many to many assocition
+ * 
+ * there are two ways 
+ * 
+ * 1.
+ * by explicitly creating a extra model file
+ * then updating the things accordingly 
+ * 
+ * 2. 
+ * without creating any extra model 
+ * sequelize will automatic handle through table 
+ * 
+ * both have different implementation (refer to the user , role and userRole model files in API-GATEWAY )
+ * but migration file will be same in both the cases (till now this is what i understand)
+ */
+
+/**
+ * what is create proxy middleware
+ * 
+ * The createProxyMiddleware is a function from the http-proxy-middleware package in Node.js, which allows you to easily create a proxy 
+ * middleware for routing requests to other servers or services. It is commonly used in Express.js applications to forward requests from 
+ * one server to another, typically when building APIs or handling requests that need to be forwarded to another backend.
+ */
+
+/**
+ * 
+ * COMMANDS FOR UPDATING OUR OWN BRANCH ON OUR SYSTEM AS PER THE UPDATED CODE ON MAIN BRANCH ON GUTHUB 
+ * 
+ *  git checkout main (main --> branch name in which updated code is present) make sure you folder is connected with main repo
+ *  git pull origin main
+ *  git checkout our_branch_name
+ *  git merge main
+ * 
+ *  git push origin our_branch_name
  */

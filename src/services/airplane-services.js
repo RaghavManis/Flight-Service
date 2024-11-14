@@ -12,7 +12,7 @@ async function createAirplane(data){
         if (error.name == "SequelizeValidationError") {
             let explanation = [];
             
-            error.errors.forEach((err) => {
+            error.errors.forEach((err) => { 
                 explanation.push(err.message);
             });   
             throw new AppError(explanation, StatusCodes.BAD_REQUEST);

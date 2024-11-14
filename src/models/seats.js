@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         targetKey : "id" ,
       })
     }
-  }
+  } 
   Seats.init({
     airplaneId:{
       type : DataTypes.INTEGER ,

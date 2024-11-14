@@ -4,6 +4,7 @@ const {
   INTEGER
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
+  // @Component
   class Airplane extends Model {
     /**
      * Helper method for defining associations.
@@ -17,12 +18,12 @@ module.exports = (sequelize, DataTypes) => {
         onDelete:"CASCADE" ,
       })
       this.hasMany(models.Seats , {
-        foreignKey : "airplaneId" ,
+        foreignKey : "airplaneId" , 
         sourceKey : "id" ,
         onDelete : "CASCADE"
       })
     }
-  }
+  }    
   Airplane.init({
     modelNumber:{
       type: DataTypes.STRING ,

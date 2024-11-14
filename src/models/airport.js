@@ -10,26 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
-      /**
-       * 
-       *   this.belongsTo(models.City,{  // SETTING UP THE DETAILS AT THE JS LEVEL 
-       *     foreignKey:'cityId',   // AIRPORT KEY WHICH IS POINTING TIO THE PRIMARY KEY OF CITY 
-       *     onDelete:'CASCADE' ,   // ADDING EXTRA FEATURES 
-       *   }) ;
-       *   this.hasMany(models.Flight , {
-       *     foreignKey:"departureAirportId" , // listen at both places (in flights as well as airport model ) we only talking about the foreign key 
-       *                                       // but but no where we talk about which key will be refrence by this foreign key , so by default it will
-       *                                       // refrence to primary key of airport , which we don't want so we will manually tell the system , s
-       *                                       // ee in flight repo in getAllFlight 
-       *     onDelete:'CASCADE' ,   // ADDING EXTRA FEATURES 
-       *   }) ;
-       *   this.hasMany(models.Flight , {
-       *     foreignKey : "arrivalAirportId" ,
-       *     onDelete:'CASCADE' ,   // ADDING EXTRA FEATURES 
-       *   })
-       * 
-       */
+
       this.belongsTo(models.City,{  // SETTING UP THE DETAILS AT THE JS LEVEL 
         foreignKey:'cityId',   // AIRPORT KEY WHICH IS POINTING TIO THE PRIMARY KEY OF CITY 
         targetKey : 'id' ,
